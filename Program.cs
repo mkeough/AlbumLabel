@@ -119,13 +119,54 @@ namespace AlbumLabel
 
         else if (input == "produce")
         {
-
           LabelManagement.ProduceAnAlbum();
-
-
-
-
         }
+
+        else if (input == "release date")
+        {
+          var displayAlbums = db.Albums.OrderBy(a => a.ReleaseDate);
+          foreach (var a in db.Albums)
+          {
+            Console.WriteLine($"{a.Id} {a.Title} was released on {a.ReleaseDate}");
+          }
+        }
+
+        else if (input == "discography")
+        {
+          Console.WriteLine("Please select the Id Number located to left of the band to view all their albums");
+          var displayBands = db.Bands.OrderBy(b => b.Id);
+          foreach (var b in displayBands)
+          {
+            Console.WriteLine($"{b.Id} {b.Name}");
+          }
+          var userInput = int.Parse(Console.ReadLine());
+          var displayBandAlbums = db.Albums.Where(a => a.BandId == userInput);
+          foreach (var a in displayBandAlbums)
+          {
+            Console.WriteLine($"{a.Title} was realeased on {a.ReleaseDate}");
+          }
+        }
+
+        else if (input == "track list")
+        {
+          Console.WriteLine("Please select the Id Number located to left of the album to view all the songs on the album");
+          var displayAlbums = db.Albums.OrderBy(b => b.Id);
+          foreach (var a in displayAlbums)
+          {
+            Console.WriteLine($"{a.Id} {a.Title}");
+          }
+          var userInput = int.Parse(Console.ReadLine());
+          var displayAlbumSongs = db.Songs.Where(a => a.AlbumId == userInput);
+          foreach (var s in displayAlbumSongs)
+          {
+            Console.WriteLine($"{s.Title}");
+          }
+        }
+
+
+
+
+
 
 
 
